@@ -1,33 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}index{% endblock title %}
+
+{% block content %}
 {% for product in products %}
-<div class="card">
-    <div class="image-container">
-        <img src="{{ product.image }}">
+<div class="container col-md-9 col-lg-5">
+
+  <a class="col-md-9 col-lg-5 card-link-custom" href="{% url 'detail_view' product.pk %}">
+    <div class="card mb-3" style="max-width: 450">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img class="col-12" src="{{product.image}}"  alt="image">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h3 class="card-title">{{product.product}}</h3>
+            <h4>Категория: {{ product.get_category_display }}</h4>
+            <p class="card-text overflow-hidden" style="height:50px;">{{product.description}}</p>
+            <p class="card-text"><small class="text-muted">Цена: {{product.price}}тг.</small></p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="title">
-        <h4 class="card-title">
-            {{ product.product }}
-        </h4>
-    </div>
-    <div class="price">
-        <p> {{ product.price }} </p>
-    </div>
-    <div class="remainder">
-        {% if product.remainder > 20 %}
-            <p>В наличии</p>
-        {% else %}
-            <p>Наличие уточнайте у менеджера</p>
-        {% endif %}
-    </div>
+  </a>
+
 
 </div>
 {% endfor %}
+{% endblock content %}
 
-</body>
-</html>
