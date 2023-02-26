@@ -19,6 +19,9 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['category', 'product']
+        
+    def get_category_display(self):
+        return dict(self.CATEGORY_CHOICES)[self.category]
 
     def __str__(self):
         return self.product
