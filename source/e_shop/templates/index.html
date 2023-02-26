@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for product in products %}
+<div class="card">
+    <div class="image-container">
+        <img src="{{ product.image }}">
+    </div>
+    <div class="title">
+        <h4 class="card-title">
+            {{ product.product }}
+        </h4>
+    </div>
+    <div class="price">
+        <p> {{ product.price }} </p>
+    </div>
+    <div class="remainder">
+        {% if product.remainder > 20 %}
+            <p>В наличии</p>
+        {% else %}
+            <p>Наличие уточнайте у менеджера</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endfor %}
+
+</body>
+</html>
