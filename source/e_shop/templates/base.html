@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark nav-custom ">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg  nav-custom ">
+        <div class="container-fluid container-fluid-castom">
             <a class="navbar-brand" href="{% url 'home' %}">E-Shop</a>
             <div>
                 <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
@@ -32,8 +32,13 @@
             </div>
         </div>
       </nav>
+      
     <div class="container-custom">
-    {% block content %}{% endblock content %}
+        
+        <div class="content">
+            {% block content %}{% endblock content %}
+        </div>
+        
     </div>
 </body>
 </html>

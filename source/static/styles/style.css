@@ -1,0 +1,79 @@
+body{
+    background-image: url("bg.png");
+}
+
+.nav-custom{
+    background: linear-gradient(#efe799, #d1bd02);
+}
+
+.container-fluid-castom{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.container-custom{
+    width: 90%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.767);
+    display: flex;
+    position: relative;
+    
+    box-shadow: 5px 5px 5px 1px #e2d87e;
+}
+
+.content-main{
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.detail-link{
+    margin: 20px;
+    text-decoration: none;
+    color: black;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.img-container{
+    width: 200px;
+    height: 200px;
+}
+
+.image-castom{
+    width: 100%;
+    height: 100%;
+}
+
+.card-title-custom{
+    font-size: 20px;
+}
+
+.card-custom{
+    width: 250px;
+    height: 400px;
+    padding: 15px;
+    
+}
+
+.discription{
+    height: 50px;
+    overflow: hidden;
+}
+
+.detail-card-custum{
+    margin: 50px auto;
+}
+
+
+.left-nav{
+    position: absolute;
+    background-color: #d1ca87;
+    width: 250px;
+    height: 750px;
+}
+
+.content{
+    width: 1250px;
+    position: relative;
+}

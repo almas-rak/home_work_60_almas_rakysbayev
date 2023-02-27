@@ -1,31 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}index{% endblock title %}
+{% block title %}Главная{% endblock title %}
 
 {% block content %}
-{% for product in products %}
-<div class="container col-md-9 col-lg-5">
-
-  <a class="col-md-9 col-lg-5 card-link-custom" href="{% url 'detail_view' product.pk %}">
-    <div class="card mb-3" style="max-width: 450">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img class="col-12" src="{{product.image}}"  alt="image">
+<div class="content-main">
+  {% for product in products %}
+    <a class="detail-link" href="{% url 'detail_view' product.pk %}">
+      <div class="card-custom">
+        <div class="img-container">
+          <img class="image-castom" src="{{product.image}}" alt="image">
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h3 class="card-title">{{product.product}}</h3>
-            <h4>Категория: {{ product.get_category_display }}</h4>
-            <p class="card-text overflow-hidden" style="height:50px;">{{product.description}}</p>
-            <p class="card-text"><small class="text-muted">Цена: {{product.price}}тг.</small></p>
-          </div>
+        <div class="card-title-custom">
+          <p> {{product.product}} </p>
+        </div>
+        <div class="category">
+          <p class="category-text">{{ product.get_category_display }}</p>
+        </div>
+        <div class="discription">
+          <p class="discription-text">{{product.description}}</p>
+        </div>
+        <div class="price">
+          <p class="price">Цена: {{product.price}}</p>
         </div>
       </div>
-    </div>
-  </a>
-
-
+    </a>
+  {% endfor %}
 </div>
-{% endfor %}
+
 {% endblock content %}
 
