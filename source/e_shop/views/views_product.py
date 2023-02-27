@@ -20,3 +20,30 @@ def create_product(request: WSGIRequest):
         return redirect('home')
     return render(request, 'add_product.html', context={'form': form})
 
+
+def edit_product(request: WSGIRequest, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'GET':
+        form = ProductForm(instance=product)
+        return render(request, 'edit_product.html', context={'form': form, 'product': product})
+    else:
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        else:
+            return render(request, 'update_product.html', context={'form': form})
+
+
+def delete_product(request: WSGIRequest, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'GET':
+        return render(request, 'detail_product.html', context={'product': product, 'delete': 'delete'})
+    else:
+        product.delete()
+        return redirect('home')
+
+
+def detail_view(request: WSGIRequest, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'detail_product.html', context={'product': product})
