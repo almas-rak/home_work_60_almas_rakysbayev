@@ -16,8 +16,8 @@ def create_product(request: WSGIRequest):
         return render(request, 'add_product.html', context={'form': form})
     form = ProductForm(request.POST)
     if form.is_valid():
-        form.save()
-        return redirect('home')
+        product = Product.objects.create(**form.cleaned_data)
+        return redirect('detail_view', pk=product.pk)
     return render(request, 'add_product.html', context={'form': form})
 
 
@@ -30,7 +30,7 @@ def edit_product(request: WSGIRequest, pk):
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('detail_view', pk=pk)
         else:
             return render(request, 'update_product.html', context={'form': form})
 
