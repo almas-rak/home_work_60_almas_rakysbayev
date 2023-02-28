@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Edit product{% endblock title %}
 {% block content %}
-<div class="container-castom">
+
 <form action="{% url 'edit_product' product.pk %}" method="POST">
     {% include 'partial/base_form.html' %}
 </form>
-</div>
+
 {% endblock content %}
