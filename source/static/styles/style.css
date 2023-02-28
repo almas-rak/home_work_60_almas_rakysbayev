@@ -21,6 +21,10 @@ body{
     box-shadow: 5px 5px 5px 1px #e2d87e;
 }
 
+.content{
+margin: 0 auto;
+}
+
 .content-main{
     padding: 25px;
     display: flex;
@@ -71,9 +75,4 @@ body{
     background-color: #d1ca87;
     width: 250px;
     height: 750px;
-}
-
-.content{
-    width: 1250px;
-    position: relative;
 }
