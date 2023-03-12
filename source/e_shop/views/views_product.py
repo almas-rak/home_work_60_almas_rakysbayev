@@ -1,49 +1,52 @@
-from django.core.handlers.wsgi import WSGIRequest
-from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from e_shop.forms import ProductForm
 from e_shop.models import Product
 
 
-def index_view(request: WSGIRequest):
-    products = Product.objects.filter(remainder__gt=0)
-    return render(request, 'index.html', context={'products': products})
+class IndexView(ListView):
+    template_name = 'index.html'
+    model = Product
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        query = Product.objects.filter(remainder__gt=0, is_deleted=False).order_by('category', 'product')
+        return query
 
 
-def create_product(request: WSGIRequest):
-    if request.method == 'GET':
-        form = ProductForm()
-        return render(request, 'add_product.html', context={'form': form})
-    form = ProductForm(request.POST)
-    if form.is_valid():
-        product = Product.objects.create(**form.cleaned_data)
-        return redirect('detail_view', pk=product.pk)
-    return render(request, 'add_product.html', context={'form': form})
+class CreateProductView(CreateView):
+    template_name = 'add_product.html'
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse('detail_view', kwargs={'pk': self.object.pk})
 
 
-def edit_product(request: WSGIRequest, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'GET':
-        form = ProductForm(instance=product)
-        return render(request, 'edit_product.html', context={'form': form, 'product': product})
-    else:
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('detail_view', pk=pk)
-        else:
-            return render(request, 'update_product.html', context={'form': form})
+class UpdateProductView(UpdateView):
+    template_name = 'edit_product.html'
+    model = Product
+    form_class = ProductForm
+
+    def get_success_url(self):
+        return reverse('detail_view', kwargs={'pk': self.object.pk})
 
 
-def delete_product(request: WSGIRequest, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'GET':
-        return render(request, 'detail_product.html', context={'product': product, 'delete': 'delete'})
-    else:
-        product.delete()
-        return redirect('home')
+class ProductDeleteView(DeleteView):
+    template_name = 'detail_product.html'
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product'] = self.object
+        context['delete'] = 'delete'
+        return context
+
+    def get_success_url(self):
+        return reverse('home')
 
 
-def detail_view(request: WSGIRequest, pk):
-    product = get_object_or_404(Product, pk=pk)
-    return render(request, 'detail_product.html', context={'product': product})
+class DetailProductView(DetailView):
+    template_name = 'detail_product.html'
+    model = Product
