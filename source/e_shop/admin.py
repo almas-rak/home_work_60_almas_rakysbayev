@@ -7,8 +7,9 @@ from e_shop.models import Product
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'description', 'image', 'category', 'remainder', 'price')
-    list_editable = ('product', 'description', 'category', 'remainder', 'price')
+    list_display = ('id', 'product', 'description', 'image', 'category', 'remainder', 'price', 'is_deleted',
+                    'deleted_at')
+    list_editable = ('product', 'description', 'category', 'remainder', 'price', 'is_deleted')
 
 
 admin.site.register(Product, ProductAdmin)
